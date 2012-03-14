@@ -34,28 +34,28 @@ module Mailgun
     end
 
     # Add a member to a mailing list on the Mailgun server
-    def add_member(mailinglist, user, vars = {})
+    def add_member(mailinglist, user_email, user_name, vars = {})
       Mailgun.submit :post, members_mailing_list_url(mailinglist),
         :subscribed => true,
-        :address => user.email,
-        :name => user.name,
+        :address => user_email,
+        :name => user_name,
         :description => 'Customer',
         :vars => vars
     end
     
     # Update a member to a mailing list on the Mailgun server
-    def update_member(mailinglist, user, vars = {})
-      Mailgun.submit :put, member_mailing_list_url(mailinglist, user.email),
+    def update_member(mailinglist, user_email, user_name, vars = {})
+      Mailgun.submit :put, member_mailing_list_url(mailinglist, user_email),
         :subscribed => true,
-        :address => user.email,
-        :name => user.name,
+        :address => user_email,
+        :name => user_name,
         :description => 'Customer',
         :vars => vars
     end
     
     # Remove a member to a mailing list on the Mailgun server
-    def destroy_member(mailinglist, user, vars = {})
-      Mailgun.submit :delete, member_mailing_list_url(mailinglist, user.email)
+    def destroy_member(mailinglist, user_email)
+      Mailgun.submit :delete, member_mailing_list_url(mailinglist, user_email)
     end
     
     private
