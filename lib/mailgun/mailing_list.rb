@@ -6,9 +6,19 @@ module Mailgun
       @mailgun = mailgun
     end
     
+    # Get all mailing lists
+    def lists
+      Mailgun.submit :get, mailing_lists_url
+    end
+    
+    # Get / Check a mailing list
+    def get(address)
+      Mailgun.submit :get, mailing_list_url(address)
+    end
+    
     # Creates a mailing list on the Mailgun server
     def create(address, desc = '')
-      Mailgun.submit :post, mailing_list_url, :address => address, :description => desc
+      Mailgun.submit :post, mailing_lists_url, :address => address, :description => desc
     end
     
     # Get members in a mailing list on the Mailgun server
@@ -51,8 +61,12 @@ module Mailgun
     private
 
     # Helper method to generate the proper url for Mailgun mailing list API calls
-    def mailing_list_url
+    def mailing_lists_url
       "#{@mailgun.base_url}/lists"
+    end
+    
+    def mailing_list_url(address)
+      "#{@mailgun.base_url}/lists/#{address}"
     end
     
     def members_mailing_list_url(address)
