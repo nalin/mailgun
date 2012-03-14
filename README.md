@@ -4,32 +4,23 @@ This gem allows for idiomatic Mailgun usage from within ruby. Mailgun is a kicka
 
 The official gem repo is at https://github.com/Bushido/mailgun
 
-Mailgun exposes the following resources:
-
-  * Routes
-  * Log
-  * Stats
-  * Messages
-  * Mailboxes
-
-Currently the gem only exposes the Mailbox and Routes APIs, but patches are welcome (and easy!). 
-
 Usage
 =====
 We mimic the ActiveRecord-style interface.
 
+Configure Mailgun API Key in config/app_config.yml
+
+  development:
+  mailgun_api_key: 'your-api-key'
+  mailgun_api_domain: 'your-api-domain'
+
+
+Initialize:
+
+  @mailgun = Mailgun::Base.new(:api_key => APP_CONFIG[:mailgun_api_key])
+  
 Mailboxes:
 
-    # Initialize your Mailgun object:
-    Mailgun.configure do |config|
-      config.api_key = 'your-api-key'
-    end
-
-    @mailgun = Mailgun()
-
-    # or alternatively:
-    @mailgun = Mailgun(:api_key => 'your-api-key')
-    
     # Create a mailbox
     @mailgun.mailboxes.create "new-mailbox@your-domain.com", "password"
     
@@ -40,6 +31,53 @@ Mailboxes:
     # "I'm sorry Bond, it seems your mailbox will be... destroyed!"
     @mailbox.mailboxes.destroy "bond@mi6.co.uk"
     
+MailingLists:
+
+    # Create a mailing list
+    @mailgun.mailing_lists.create "alias-address@your-domain.com", "description"
+    
+    # List all members in a mailing list
+    @mailgun.mailing_lists.get_members("mailing list address", subscribed, limit)
+    
+    # Get one member in a mailing list
+    @mailgun.mailing_lists.get_member("mailing list address", "user email")
+    
+    # Add one member in a mailing list
+    @mailgun.mailing_lists.add_member("mailing list address", "user email", "user name", user_vars)
+    
+    # Update one member in a mailing list
+    @mailgun.mailing_lists.update_member("mailing list address", "user email", "user name", user_vars)
+    
+    # Delete one member in a mailing list
+    @mailgun.mailing_lists.destroy_member("mailing list address", "user email")
+
+Campaigns:
+
+    # Create a campaign, campaign id is X-Mailgun-Campaign-Id
+    @mailgun.campaigns.create("campaign name", "campaign id")
+  
+    # List all campaigns
+    @mailgun.campaigns.lists
+  
+    # Get a campaign
+    @mailgun.campaigns.get("campaign id")
+
+
+Unsubscribe:
+
+    # List all unsubscribed users
+    @mailgun.unsubscribes.lists
+
+    # Get / Check if a user is in unsubscribed list
+    @mailgun.unsubscribes.get(user_email)
+    
+    # Add a user to unsubscribed list
+    @mailgun.unsubscribes.create(user_email)
+    
+    # Remove a user to unsubscribed list
+    @mailgun.unsubscribes.destroy(user_email)
+
+
 Routes:
 
     # Initialize your Mailgun object:

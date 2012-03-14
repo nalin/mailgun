@@ -23,6 +23,21 @@ module Mailgun
     def mailboxes
       @mailboxes ||= Mailgun::Mailbox.new(self)
     end
+    
+    # Return an instance of Mailgun::MailingList configured for the current user
+    def mailing_lists
+      @mailing_lists ||= Mailgun::MailingList.new(self)
+    end
+    
+    # Return an instance of Mailgun::Campaign configured for the current user
+    def campaigns
+      @campaigns ||= Mailgun::Campaign.new(self)
+    end
+    
+    # Return an instance of Mailgun::Unsubscribe configured for the current user
+    def unsubscribes
+      @unsubscribes ||= Mailgun::Unsubscribe.new(self)
+    end
 
     def routes
       @routes ||= Mailgun::Route.new(self)
