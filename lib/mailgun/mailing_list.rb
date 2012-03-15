@@ -40,7 +40,7 @@ module Mailgun
         :address => user_email,
         :name => user_name,
         :description => 'Customer',
-        :vars => vars
+        :vars => vars.to_json
     end
     
     # Update a member to a mailing list on the Mailgun server
@@ -50,7 +50,7 @@ module Mailgun
         :address => user_email,
         :name => user_name,
         :description => 'Customer',
-        :vars => vars
+        :vars => vars.to_json
     end
     
     # Remove a member to a mailing list on the Mailgun server
