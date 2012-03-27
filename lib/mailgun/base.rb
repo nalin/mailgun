@@ -24,6 +24,10 @@ module Mailgun
       @mailboxes ||= Mailgun::Mailbox.new(self)
     end
     
+    def messages
+      @messages ||= Mailgun::Message.new(self)
+    end
+    
     # Return an instance of Mailgun::MailingList configured for the current user
     def mailing_lists
       @mailing_lists ||= Mailgun::MailingList.new(self)

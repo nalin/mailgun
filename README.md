@@ -128,6 +128,7 @@ Authors
 
   * Akash Manohar J (akash@akash.im)
   * Sean Grove (sean@gobushido.com)
+  * Nalin Mittal (nalin.mittal@gmail.com)
 
 Thanks
 ======

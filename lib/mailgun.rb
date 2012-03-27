@@ -7,6 +7,7 @@ require "mailgun/base"
 require "mailgun/campaign"
 require "mailgun/mailbox"
 require "mailgun/mailing_list"
+require "mailgun/message"
 require "mailgun/unsubscribe"
 require "mailgun/route"
 
